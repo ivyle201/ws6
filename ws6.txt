@@ -1,7 +1,3 @@
-Last login: Sat Oct 15 12:26:13 2022 from 172.29.97.254
-
-[vivian@sjsu ~]$ 
-[vivian@sjsu ~]$ tmux attach -t ws6
 
 [vivian@sjsu ~]$ script ws6.txt                                                                                                             [38/38]
 Script started, file is ws6.txt                                                                                                                   
@@ -23,15 +19,24 @@ Script started, file is ws6.txt
 
 2) cp the file PRODUCTS/productID.txt to a file PRODUCTS/productID.DATETIME.txt (where DATETIME is the current datetimestamp you got)
 
-[vivian@sjsu ws6]$ cp ../worksheet4/PRODUCTS/076450861X.txt 076450861X.$DATETIME.txt      
+[vivian@sjsu ws6]$ fgrep "076450861X" amazon_reviews_us_Books_v1_02.tsv | cut -f9 > worksheet4/PRODUCTS/076450861X.txt
 
+[vivian@sjsu ws6]$ cp ../worksheet4/PRODUCTS/076450861X.txt 076450861X.$DATETIME.txt      
 
 
 
 3) append a new row to the end of PRODUCTS/productID.DATETIME.txt as a new product review (the row contents don't matter, just make sure the rating_score you give is a numerical value)
 
-[vivian@sjsu ws6]$ echo 100 >> 076450861X.2022-10-15_004716.txt
 
+
+[vivian@sjsu ws6]$ cat 076450861X.2022-10-15_004716.txt
+9
+5
+54
+6
+15
+
+[vivian@sjsu ws6]$ echo 100 >> 076450861X.2022-10-15_004716.txt
 
 [vivian@sjsu ws6]$ cat 076450861X.2022-10-15_004716.txt 
 9
@@ -39,8 +44,6 @@ Script started, file is ws6.txt
 54
 6
 15
-10
-20
 100
 
 
@@ -66,27 +69,16 @@ no crontab for vivian
 
 [vivian@sjsu ws6]$ crontab -l
 
-* * * * * awk 'BEGIN {sum=0} {sum+=$1} END {print sum/NR}' /home/vivian/ws6/076450861X.LATEST.txt > /home/vivian/ws6/076450861X.AVGRATING.txt
 
+* * * * * awk 'BEGIN {sum=0} {sum+=$1} END {print sum/NR}' /home/vivian/ws6/076450861X.LATEST.txt > /home/vivian/ws6/076450861X.AVGRATING.txt 2>&1
 
-[vivian@sjsu ws6]$ l -ltrh
-
-total 60K
-lrwxrwxrwx  1 vivian vivian   32 Oct 15 12:59 076450861X.LATEST.txt -> 076450861X.2022-10-15_004716.txt
--rw-rw-r--  1 vivian vivian   22 Oct 15 13:57 076450861X.2022-10-15_004716.txt
--rw-rw-r--  1 vivian vivian  47K Oct 15 15:24 cmds.log
-drwx------ 14 vivian vivian 4.0K Oct 15 15:33 ..
--rw-r--r--  1 vivian vivian    7 Oct 15 15:39 076450861X.AVGRATING.txt
-drwxrwxr-x  2 vivian vivian  123 Oct 15 15:39 .
 
 
 [vivian@sjsu ws6]$ cat 076450861X.AVGRATING.txt
-
-27.375
+31.5
 
 
 [vivian@sjsu ws6]$ exit
 exit
 
 Script done on 2022-10-15 14:00:52-04:00
-
